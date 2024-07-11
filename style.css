@@ -80,6 +80,7 @@ button {
   letter-spacing: -0.02em;
 
   color: #132f00;
+  cursor: pointer;
 }
 
 .card-bg {
@@ -149,4 +150,43 @@ time {
 
 time.full {
   display: none;
+}
+
+/* Animação */
+
+section .card-bg {
+  animation: appear 0.3s;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Responsivo  */
+
+@media (width > 1024px) {
+  #app {
+    display: flex;
+    max-width: 960px;
+    gap: 32px;
+  }
+
+  main {
+    margin-top: 0;
+    flex: 1;
+  }
+
+  h1 {
+    text-align: left;
+  }
+
+  time.full {
+    display: block;
+  }
+
+  time.short {
+    display: none;
+  }
 }
