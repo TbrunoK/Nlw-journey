@@ -83,6 +83,12 @@ button {
   cursor: pointer;
 }
 
+button:hover {
+  background-color: #7bb12a;
+  transition: 0.3s;
+  color: #010300;
+}
+
 .card-bg {
   background: #18181b;
   /* shape */
