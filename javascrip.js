@@ -41,13 +41,14 @@ let atividades = [
 
 // arrow function
 const criarItemDeAtividade = (atividade) => {
-  let input = ' <input type="checkbox" '
+  let input = `
+  <input onchange="concluirAtividade(event)" value="${atividade.data}" type="checkbox"
+  `
 
   if (atividade.finalizada) {
-    input = input + "checked"
+    input += "checked"
   }
-  // input += ">"
-  input = input + ">"
+  input += ">"
 
   const formatar = formatador(atividade.data)
 
@@ -59,13 +60,14 @@ const criarItemDeAtividade = (atividade) => {
    ${formatar.dia.semana.longo},
    dia ${formatar.dia.numerico}
    de ${formatar.mes}
-   as ${formatar.hora}h </time>
+   às ${formatar.hora}h </time>
   </div> 
  `
 }
 
 const atualizarListaDeAtividade = () => {
   const section = document.querySelector("section")
+  section.innerHTML = ""
 
   // Verificar se a lista esta vazia
   if (atividades.length == 0) {
@@ -74,7 +76,7 @@ const atualizarListaDeAtividade = () => {
   }
 
   for (let atividade of atividades) {
-    section.innerHTML = section.innerHTML + criarItemDeAtividade(atividade)
+    section.innerHTML += criarItemDeAtividade(atividade)
   }
 }
 
@@ -82,14 +84,37 @@ atualizarListaDeAtividade()
 
 const salvarAtividade = (event) => {
   event.preventDefault()
+  const dadosDoFormulario = new FormData(event.target)
+
+  const nome = dadosDoFormulario.get("atividade")
+  const dia = dadosDoFormulario.get("dia")
+  const hora = dadosDoFormulario.get("hora")
+  const data = new Date(`${dia} ${hora}`)
+
+  const novaAtividade = {
+    nome: nome,
+    data: data,
+    finalizada: false,
+  }
+
+  const atividadeExiste = atividades.find((atividade) => {
+    return atividade.data.getTime() === novaAtividade.data.getTime()
+  })
+
+  if (atividadeExiste) {
+    return alert("Dia/hora não disponível")
+  }
+
+  atividades = [novaAtividade, ...atividades]
+  atualizarListaDeAtividade()
 }
 
 const criarDiasSelecao = () => {
   const dias = [
     "2024-02-28",
     "2024-02-29",
-    "2024-03-1",
-    "2024-03-2",
+    "2024-03-01",
+    "2024-03-02",
     "2024-03-03",
   ]
 
@@ -106,7 +131,7 @@ const criarDiasSelecao = () => {
     `
   }
 
-  document.querySelector('select[name="dia').innerHTML = diasSelecao
+  document.querySelector('select[name="dia"]').innerHTML = diasSelecao
 }
 criarDiasSelecao()
 
@@ -114,10 +139,28 @@ const criarHorasSelecao = () => {
   let horasDisponiveis = ""
 
   for (let i = 6; i < 23; i++) {
-    horasDisponiveis += `<option value="${i}:00">${i}:00</option>`
+    const hora = String(i).padStart(2, "0")
+    horasDisponiveis += `<option value="${hora}:00">${hora}:00</option>`
+    horasDisponiveis += `<option value="${hora}:30">${hora}:30</option>`
   }
 
   document.querySelector('select[name="hora"]').innerHTML = horasDisponiveis
 }
 
 criarHorasSelecao()
+
+const concluirAtividade = (event) => {
+  const input = event.target
+  const dataDesteInput = new Date(input.value)
+
+  const atividade = atividades.find((atividade) => {
+    return atividade.data.getTime() === dataDesteInput.getTime()
+  })
+
+  if (!atividade) {
+    return
+  }
+
+  atividade.finalizada = !atividade.finalizada
+  atualizarListaDeAtividade()
+}

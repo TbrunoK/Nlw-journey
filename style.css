@@ -1,4 +1,71 @@
-html {
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+html,
+input,
+select,
+button,
+option {
+  font-family: "inter", sans-serif;
   background-color: #09090b;
   color: #fafafa;
+}
+
+/* APP */
+
+#app {
+  padding: 40px 20px;
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Form */
+
+input,
+select {
+  all: unset;
+}
+
+input,
+selec,
+button {
+  width: 100%;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field-wrapper {
+  padding: 18px;
+  background-color: #09090b;
+  border: 1px solid #27272a;
+  border-radius: 8px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.field-wrapper:focus-within {
+  outline: 2px solid yellowgreen;
+}
+
+button {
+  margin-top: 12px;
+  border: none;
+  padding: 12px 20px;
+  background-color: #aff445;
+  border-radius: 8px;
+
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+
+  color: #132f00;
 }
