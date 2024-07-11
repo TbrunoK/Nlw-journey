@@ -53,10 +53,24 @@ const criarItemDeAtividade = (atividade) => {
   const formatar = formatador(atividade.data)
 
   return `
-  <div>
+  <div class="card-bg">
   ${input}
+
+  <div>
+  <img class="active" src="./assets/svg/check.svg" width="20" height="20" />
+
+  <img class="inactive" src="./assets/svg/checkCompleto.svg" width="20" height="20" />
+
    <span>${atividade.nome}</span>
-   <time>
+   </div>
+
+   <time class="short">
+   ${formatar.dia.semana.curto}.
+   ${formatar.dia.numerico} <br>
+   ${formatar.hora}
+   </time>
+
+   <time class="full">
    ${formatar.dia.semana.longo},
    dia ${formatar.dia.numerico}
    de ${formatar.mes}
