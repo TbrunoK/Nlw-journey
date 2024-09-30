@@ -25,7 +25,7 @@ Este projeto é uma aplicação web para gerenciar atividades, desenvolvido como
 Sinta-se à vontade para abrir issues e enviar pull requests.
 
 <div>
-  <a href="https://tbrunok.github.io/nlw-journey/">
+  <a href="https://tbrunok.github.io/Nlw-journey/">
     <img src="https://github.com/TbrunoK/nlw-journey/blob/main/assets/svg/projeto.png?raw=true">
   </a>
 </div>
